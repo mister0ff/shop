@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star☾at Shop · Profissional & Sincronizado</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0d0202;
+            --card-bg: rgba(28, 6, 6, 0.90);
+            --modal-bg: #1a0404;
+            --primary-accent: #ff0000;
+            --primary-glow: #ff2a2a;
+            --secondary-accent: #b30000;
+            --text-color: #ffffff;
+            --text-sub: #d1d5db;
+            --border-color: rgba(255, 0, 0, 0.45);
+            --input-bg: rgba(15, 2, 2, 0.85);
+            --success: #10b981;
+            --accent-gold: #ffb142;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(179, 0, 0, 0.20) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* ANIMAÇÃO DEGRADÊ OSCILANTE PARA TEXTOS DO ADMIN */
+        @keyframes redGradientOscillate {
+            0% {
+                background-position: 0% 50%;
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            }
+            50% {
+                background-position: 100% 50%;
+                text-shadow: 0 0 22px rgba(255, 60, 60, 0.9);
+            }
+            100% {
+                background-position: 0% 50%;
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            }
+        }
+
+        .admin-animated-text {
+            background: linear-gradient(90deg, #ff0000, #ff6666, #990000, #ff3333, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: redGradientOscillate 3s ease-in-out infinite;
+            font-weight: 800;
+        }
+
+        /* NAVBAR */
+        header {
+            background: rgba(13, 2, 2, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 24px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-shadow: 0 0 14px rgba(255, 0, 0, 0.8);
+        }
+
+        .logo i { color: var(--primary-glow); }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav:hover {
+            background: rgba(255, 0, 0, 0.3);
+            border-color: var(--primary-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .user-avatar-nav {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--primary-accent);
+        }
+
+        /* NAVEGAÇÃO POR ABAS PRINCIPAIS */
+        .tabs-container {
+            max-width: 1200px;
+            margin: 15px auto 0;
+            padding: 0 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: rgba(28, 6, 6, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 10px 20px;
+            border-radius: 12px 12px 0 0;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--card-bg);
+            color: #fff;
+            border-bottom: 2px solid var(--primary-accent);
+            box-shadow: 0 -4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 20px 20px 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, var(--primary-glow), #ff6666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .hero p { color: var(--text-sub); font-size: 1.05rem; }
+
+        /* LAYOUT PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.15);
+            backdrop-filter: blur(8px);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-family: 'Fredoka', sans-serif;
+            color: #fff;
+            font-size: 1.3rem;
+            border-left: 4px solid var(--primary-accent);
+            padding-left: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* FORMULÁRIOS & INPUTS */
+        .input-block { margin-bottom: 14px; }
+        .input-block label {
+            display: block;
+            color: var(--text-sub);
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        textarea.input-box {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        select.input-box option {
+            background: #1a0404;
+            color: #fff;
+        }
+
+        .input-row { display: flex; gap: 12px; }
+        .input-row .input-block { flex: 1; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            filter: grayscale(0.8);
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: #fff;
+        }
+
+        .btn-danger { background: linear-gradient(135deg, #cc0000, #800000); }
+        .btn-success { background: linear-gradient(135deg, #10b981, #047857); }
+        
+        .btn-pix-red {
+            background: linear-gradient(135deg, #ff0000, #990000) !important;
+            color: #ffffff !important;
+            border: 1px solid #ff4d4d !important;
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.6) !important;
+            font-weight: 800 !important;
+        }
+
+        .btn-pix-red:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ff2a2a, #b30000) !important;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9) !important;
+        }
+
+        .image-preview {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-height: 140px;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px auto 10px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* CATÁLOGOS */
+        .catalog-container {
+            background: var(--card-bg);
+            border: 2px solid var(--cat-color, var(--border-color));
+            border-radius: 18px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 15px var(--cat-glow, rgba(255, 0, 0, 0.15));
+            transition: all 0.3s ease;
+        }
+
+        .catalog-header {
+            background: var(--cat-color, var(--primary-accent));
+            color: #ffffff;
+            padding: 14px 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            letter-spacing: 0.5px;
+        }
+
+        .catalog-products-grid {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* CARD PRODUTO */
+        .produto-card {
+            background: rgba(15, 2, 2, 0.75);
+            border: 2px solid var(--custom-color, var(--border-color));
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .produto-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px var(--custom-glow, rgba(255, 0, 0, 0.4));
+        }
+
+        .produto-img-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .produto-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .produto-img-container .placeholder-icon { font-size: 3.5rem; color: var(--custom-color, var(--primary-glow)); }
+
+        .badge-desconto {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--custom-color, var(--primary-accent));
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+
+        .produto-info {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .produto-title { font-weight: 700; font-size: 1.1rem; color: #fff; margin-bottom: 4px; }
+
+        .produto-meta {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .badge-meta {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-sub);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .produto-preco-box { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+        .preco-atual { font-weight: 800; font-size: 1.2rem; color: var(--accent-gold); }
+        .preco-antigo { text-decoration: line-through; color: var(--text-sub); font-size: 0.85rem; }
+
+        /* ABAS ADMIN */
+        .admin-nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .admin-tab-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-sub);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .admin-tab-item.active {
+            background: var(--primary-accent);
+            color: #fff;
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+        }
+
+        /* RANKING TOP 10 */
+        @keyframes rainbowBorder {
+            0% { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+            20% { border-color: #ffaa00; box-shadow: 0 0 15px rgba(255, 170, 0, 0.7); }
+            40% { border-color: #00ff66; box-shadow: 0 0 15px rgba(0, 255, 102, 0.7); }
+            60% { border-color: #00ccff; box-shadow: 0 0 15px rgba(0, 204, 255, 0.7); }
+            80% { border-color: #cc00ff; box-shadow: 0 0 15px rgba(204, 0, 255, 0.7); }
+            100% { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); }
+        }
+
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ranking-item {
+            background: rgba(15, 2, 2, 0.75);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .ranking-item.rank-top-1 {
+            animation: rainbowBorder 4s linear infinite;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.15), rgba(0, 204, 255, 0.15));
+            border-width: 2px;
+        }
+
+        .ranking-item.rank-top-2 {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 0 12px rgba(192, 192, 192, 0.5) !important;
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), rgba(15, 2, 2, 0.8)) !important;
+        }
+
+        .ranking-item.rank-top-3 {
+            border-color: #cd7f32 !important;
+            box-shadow: 0 0 12px rgba(205, 127, 50, 0.5) !important;
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), rgba(15, 2, 2, 0.8)) !important;
+        }
+
+        .ranking-pos {
+            font-weight: 800;
+            font-size: 0.95rem;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .ranking-item.rank-top-1 .ranking-pos { background: #ffd700; color: #000; font-weight: 900; }
+        .ranking-item.rank-top-2 .ranking-pos { background: #c0c0c0; color: #000; font-weight: 900; }
+        .ranking-item.rank-top-3 .ranking-pos { background: #cd7f32; color: #fff; font-weight: 900; }
+
+        .ranking-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .ranking-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--primary-accent);
+        }
+
+        .ranking-nick { font-weight: 700; color: #fff; font-size: 0.95rem; }
+        .ranking-val { font-weight: 800; color: var(--accent-gold); font-size: 0.95rem; }
+
+        /* LISTAS ADMIN */
+        .item-list-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(15, 2, 2, 0.8);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+
+        .item-list-row.pending {
+            border-color: var(--accent-gold);
+            background: rgba(255, 177, 66, 0.08);
+        }
+
+        /* MODAIS */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-content {
+            background: var(--modal-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .chat-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            height: 240px;
+            padding: 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .chat-msg {
+            background: rgba(255, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            max-width: 85%;
+        }
+
+        .chat-msg.me {
+            align-self: flex-end;
+            background: rgba(255, 0, 0, 0.3);
+            border-color: var(--primary-accent);
+        }
+
+        .chat-msg-author {
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .qr-code-img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin: 10px auto;
+            display: block;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: #fff;
+            padding: 6px;
+        }
+
+        .avatar-crop-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-accent);
+            overflow: hidden;
+            margin: 0 auto 15px;
+            position: relative;
+            background: #000;
+            touch-action: none;
+        }
+
+        .avatar-crop-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: none;
+            cursor: move;
+            transform-origin: center center;
+        }
+
+        .notice-box {
+            background: rgba(255, 0, 0, 0.15);
+            border: 1px dashed var(--primary-accent);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #ff9999;
+            margin-bottom: 12px;
+        }
+
+        .hidden { display: none !important; }
+
+        .toast {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            background: var(--modal-bg);
+            border: 2px solid var(--primary-accent);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        .btn-support-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 99;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-support-float:hover { transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .catalog-products-grid { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
+            .admin-nav-tabs { flex-wrap: nowrap; overflow-x: scroll; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-cat"></i> Star☾at Shop
+            </div>
+            <div class="nav-actions">
+                <div class="btn-nav" id="userBadge" style="display: none;">
+                    <img id="navAvatarImg" class="user-avatar-nav" src="https://via.placeholder.com/150" alt="Avatar">
+                    <span id="navUsername">Usuário</span>
+                </div>
+                <button class="btn-nav btn-danger" id="logoutBtn" style="display: none;" onclick="handleLogout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABAS PRINCIPAIS -->
+    <div class="tabs-container">
+        <button class="tab-btn active" id="tabShopBtn" onclick="switchTab('shop')">
+            <i class="fa-solid fa-store"></i> Loja
+        </button>
+        <button class="tab-btn hidden" id="tabAdminBtn" onclick="switchTab('admin')">
+            <i class="fa-solid fa-user-shield"></i> Painel Admin
+        </button>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Bem-vindo à Star☾at Shop!</h1>
+        <p>A loja oficial sincronizada com os melhores benefícios e entregas instantâneas.</p>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container">
+        
+        <!-- ABA LOJA -->
+        <div id="viewShop">
+            <div class="dashboard-grid">
+
+                <!-- ESQUERDA: PERFIL E RANKING -->
+                <div>
+                    <!-- PERFIL / AUTH -->
+                    <div class="card">
+                        <h3><i class="fa-solid fa-shield-halved" style="color: var(--primary-glow);"></i> Autenticação</h3>
+
+                        <!-- LOGIN -->
+                        <div id="formLogin">
+                            <form onsubmit="handleLogin(event)">
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-user"></i> E-mail</label>
+                                    <input type="email" class="input-box" id="loginUser" placeholder="seu@email.com" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-lock"></i> Senha</label>
+                                    <input type="password" class="input-box" id="loginPass" placeholder="••••••••" required>
+                                </div>
+                                <button type="submit" class="btn-submit"><i class="fa-solid fa-right-to-bracket"></i> Entrar na Conta</button>
+                            </form>
+                            <hr style="border-color: var(--border-color); margin: 16px 0;">
+                            <button class="btn-submit btn-secondary" onclick="toggleAuthScreens('register')">
+                                <i class="fa-solid fa-user-plus"></i> Criar Nova Conta
+                            </button>
+                        </div>
+
+                        <!-- CADASTRO -->
+                        <div id="formRegister" class="hidden">
+                            <div class="notice-box">
+                                <i class="fa-solid fa-circle-info"></i> Coloque seu <b>Nick REAL do Minecraft</b> para receber suas compras!
+                            </div>
+                            <form onsubmit="handleRegister(event)">
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-user"></i> Nome de Usuário</label>
+                                    <input type="text" class="input-box" id="regUser" placeholder="Ex: LucasCat" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-cube"></i> Nick Minecraft REAL</label>
+                                    <input type="text" class="input-box" id="regMcNick" placeholder="Ex: stc" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-envelope"></i> E-mail</label>
+                                    <input type="email" class="input-box" id="regEmail" placeholder="seu@email.com" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-lock"></i> Senha</label>
+                                    <input type="password" class="input-box" id="regPass" placeholder="••••••••" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-shield-cat"></i> Confirmar Senha</label>
+                                    <input type="password" class="input-box" id="regPassConfirm" placeholder="••••••••" required>
+                                </div>
+                                <button type="submit" class="btn-submit"><i class="fa-solid fa-check"></i> Cadastrar Conta</button>
+                                <button type="button" class="btn-submit btn-secondary" onclick="toggleAuthScreens('login')">Voltar ao Login</button>
+                            </form>
+                        </div>
+
+                        <!-- PERFIL EDITÁVEL -->
+                        <div id="profileEdit" class="hidden">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <img id="profileAvatarPreview" src="https://via.placeholder.com/150" style="width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--primary-accent); object-fit: cover; margin-bottom: 8px;">
+                                <br>
+                                <button class="btn-submit btn-secondary" style="display: inline-block; width: auto; padding: 6px 14px; font-size: 0.8rem;" onclick="openAvatarCropModal()">
+                                    <i class="fa-solid fa-crop-simple"></i> Ajustar Avatar / Galeria
+                                </button>
+                            </div>
+                            <form onsubmit="handleProfileUpdate(event)">
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-user"></i> Usuário <small id="userChangeNote" style="color: var(--accent-gold);">(1 alteração permitida)</small></label>
+                                    <input type="text" class="input-box" id="profUser" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-cube"></i> Nick Minecraft REAL</label>
+                                    <input type="text" class="input-box" id="profMcNick" placeholder="Ex: stc" required>
+                                </div>
+                                <div class="input-block">
+                                    <label><i class="fa-solid fa-envelope"></i> E-mail</label>
+                                    <input type="email" class="input-box" id="profEmail" disabled style="opacity: 0.6;">
+                                </div>
+                                <button type="submit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Salvar Perfil</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- RANKING TOP 10 -->
+                    <div class="card">
+                        <h3><i class="fa-solid fa-trophy" style="color: var(--accent-gold);"></i> TOP 10 Compradores</h3>
+                        <div class="ranking-list" id="rankingList">
+                            <p style="color: var(--text-sub); text-align: center; font-size: 0.85rem;">Carregando ranking...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- DIREITA: CATÁLOGOS -->
+                <div id="shopCatalogsArea">
+                    <p style="color: var(--text-sub); text-align: center; margin-top: 20px;">Carregando loja instantânea...</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ABA PAINEL ADMIN EXCLUSIVO -->
+        <div id="viewAdmin" class="hidden">
+            <div class="card">
+                <h3 class="admin-animated-text"><i class="fa-solid fa-user-shield"></i> Painel de Administração Exclusivo</h3>
+
+                <div class="admin-nav-tabs">
+                    <button class="admin-tab-item active" id="btnAdminTabCatalogs" onclick="switchAdminSubTab('catalogs')">
+                        <i class="fa-solid fa-folder-plus"></i> Criar Catálogo
+                    </button>
+                    <button class="admin-tab-item" id="btnAdminTabProducts" onclick="switchAdminSubTab('products')">
+                        <i class="fa-solid fa-box-open"></i> Criar Produto
+                    </button>
+                    <button class="admin-tab-item" id="btnAdminTabCoupons" onclick="switchAdminSubTab('coupons')">
+                        <i class="fa-solid fa-ticket"></i> Criar Cupom
+                    </button>
+                    <button class="admin-tab-item" id="btnAdminTabBot" onclick="switchAdminSubTab('bot')">
+                        <i class="fa-solid fa-robot"></i> Editar Bot
+                    </button>
+                    <button class="admin-tab-item" id="btnAdminTabChats" onclick="switchAdminSubTab('chats')">
+                        <i class="fa-solid fa-headset"></i> Chat Suporte
+                    </button>
+                    <button class="admin-tab-item" id="btnAdminTabOrders" onclick="switchAdminSubTab('orders')">
+                        <i class="fa-solid fa-truck-ramp-box"></i> Pedidos & Entregas
+                    </button>
+                </div>
+
+                <!-- SUB-ABA 1: CATÁLOGOS -->
+                <div id="adminSubTabCatalogs">
+                    <form onsubmit="handleCreateCatalog(event)">
+                        <h4 class="admin-animated-text" style="margin-bottom: 14px;"><i class="fa-solid fa-folder-plus"></i> Novo Catálogo (Categoria)</h4>
+                        <div class="input-row">
+                            <div class="input-block">
+                                <label>Nome do Catálogo</label>
+                                <input type="text" class="input-box" id="catName" placeholder="Ex: VIPS, CAPAS, MOEDAS" required>
+                            </div>
+                            <div class="input-block">
+                                <label>Cor do Catálogo</label>
+                                <input type="color" class="input-box" id="catColor" value="#00ff88" style="height: 42px; cursor: pointer;">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fa-solid fa-plus"></i> Criar Catálogo</button>
+                    </form>
+                    <hr style="border-color: var(--border-color); margin: 25px 0;">
+                    <h4 class="admin-animated-text" style="margin-bottom: 12px;"><i class="fa-solid fa-list"></i> Catálogos Existentes</h4>
+                    <div id="adminCatalogsList"><p style="color: var(--text-sub); font-size: 0.85rem;">Carregando catálogos...</p></div>
+                </div>
+
+                <!-- SUB-ABA 2: PRODUTOS -->
+                <div id="adminSubTabProducts" class="hidden">
+                    <form onsubmit="handleSaveProduct(event)">
+                        <h4 class="admin-animated-text" style="margin-bottom: 14px;"><i class="fa-solid fa-plus-circle"></i> Cadastrar Produto na Loja</h4>
+                        <div class="input-block">
+                            <label><i class="fa-solid fa-folder"></i> Selecione o Catálogo</label>
+                            <select class="input-box" id="prodCatalogSelect" required>
+                                <option value="">Carregando catálogos...</option>
+                            </select>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-block">
+                                <label>Nome do Produto</label>
+                                <input type="text" class="input-box" id="prodTitle" placeholder="Ex: VIP Supremo" required>
+                            </div>
+                            <div class="input-block">
+                                <label>Preço (R$)</label>
+                                <input type="number" step="0.01" class="input-box" id="prodPrice" placeholder="29.90" required>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-block">
+                                <label>Duração</label>
+                                <input type="text" class="input-box" id="prodDuration" placeholder="Ex: Permanente, 30 Dias" value="Permanente" required>
+                            </div>
+                            <div class="input-block">
+                                <label>Estoque/Quantidade</label>
+                                <input type="number" class="input-box" id="prodQuantity" placeholder="Ex: 50" value="99" required>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-block">
+                                <label>Cor do Card</label>
+                                <input type="color" class="input-box" id="prodColor" value="#ff0000" style="height: 42px; cursor: pointer;">
+                            </div>
+                            <div class="input-block">
+                                <label>Desconto (%)</label>
+                                <input type="number" class="input-box" id="prodDiscount" placeholder="0" value="0">
+                            </div>
+                        </div>
+                        <div class="input-block">
+                            <label><i class="fa-solid fa-image"></i> Imagem do Produto</label>
+                            <input type="file" class="input-box" id="prodImgFile" accept="image/*">
+                            <div class="image-preview" id="imagePreview">
+                                <span style="color: var(--text-sub); font-size: 0.85rem;">Nenhuma imagem</span>
+                            </div>
+                        </div>
+                        <div class="input-block">
+                            <label><i class="fa-solid fa-qrcode"></i> URL QR Code Pix</label>
+                            <input type="text" class="input-box" id="prodPixQr" placeholder="https://link-da-imagem-qrcode.png">
+                        </div>
+                        <div class="input-block">
+                            <label><i class="fa-solid fa-copy"></i> Chave Pix Copia e Cola</label>
+                            <input type="text" class="input-box" id="prodPixCode" placeholder="00020126360014BR.GOV.BCB.PIX...">
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar Produto Instantâneo</button>
+                    </form>
+                </div>
+
+                <!-- SUB-ABA 3: CUPONS -->
+                <div id="adminSubTabCoupons" class="hidden">
+                    <form onsubmit="handleCreateCoupon(event)">
+                        <h4 class="admin-animated-text" style="margin-bottom: 14px;"><i class="fa-solid fa-ticket"></i> Novo Cupom de Desconto</h4>
+                        <div class="input-row">
+                            <div class="input-block">
+                                <label>Código do Cupom</label>
+                                <input type="text" class="input-box" id="couponCode" placeholder="Ex: STAR10" required>
+                            </div>
+                            <div class="input-block">
+                                <label>Desconto (%)</label>
+                                <input type="number" class="input-box" id="couponPercent" placeholder="10" required>
+                            </div>
+                            <div class="input-block">
+                                <label>Quantidade (Usos)</label>
+                                <input type="number" class="input-box" id="couponUses" placeholder="Ex: 50" value="50" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fa-solid fa-tags"></i> Salvar Cupom Global</button>
+                    </form>
+                    <hr style="border-color: var(--border-color); margin: 25px 0;">
+                    <h4 class="admin-animated-text" style="margin-bottom: 12px;"><i class="fa-solid fa-list-check"></i> Cupons Ativos</h4>
+                    <div id="adminCouponsList"><p style="color: var(--text-sub); font-size: 0.85rem;">Carregando cupons...</p></div>
+                </div>
+
+                <!-- SUB-ABA 4: BOT & WEBHOOKS -->
+                <div id="adminSubTabBot" class="hidden">
+                    <form onsubmit="handleSaveBotSettings(event)">
+                        <h4 class="admin-animated-text" style="margin-bottom: 14px;"><i class="fa-solid fa-sliders"></i> Configurações de Webhooks Discord</h4>
+                        <div class="input-block">
+                            <label><i class="fa-solid fa-link"></i> Webhook Principal (Notificações / Suporte / Compras)</label>
+                            <input type="text" class="input-box" id="botPrimaryWebhook" placeholder="https://discord.com/api/webhooks/..." required>
+                        </div>
+                        <div class="input-block">
+                            <label><i class="fa-solid fa-truck"></i> Webhook de Entregas</label>
+                            <input type="text" class="input-box" id="botDeliveryWebhook" placeholder="https://discord.com/api/webhooks/..." required>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-block">
+                                <label>Cor do Embed Discord</label>
+                                <input type="color" class="input-box" id="botEmbedColor" value="#ff0000" style="height: 42px; cursor: pointer;">
+                            </div>
+                        </div>
+                        <div class="input-block">
+                            <label>Mensagem de Entrega (Tags: <code>&lt;user&gt;</code>, <code>&lt;produto&gt;</code>, <code>&lt;nickMinecraft&gt;</code>)</label>
+                            <textarea class="input-box" id="botDeliveryTemplate" rows="4"><:carrinho:1543696820755238962> | Pedido Entregue ‼️
+> <:setaD:1543340062974935140> <user>!
+> <:setaD:1543340062974935140> Seu : <produto> foi entregue na sua conta **<nickMinecraft>**!</textarea>
+                        </div>
+                        <button type="submit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> Salvar Configurações do Bot</button>
+                    </form>
+                </div>
+
+                <!-- SUB-ABA 5: CHATS DE SUPORTE -->
+                <div id="adminSubTabChats" class="hidden">
+                    <h4 class="admin-animated-text" style="margin-bottom: 14px;"><i class="fa-solid fa-comments"></i> Central de Atendimento (Tickets Ativos)</h4>
+                    <div id="adminTicketsList"><p style="color: var(--text-sub); font-size: 0.85rem;">Carregando tickets...</p></div>
+                </div>
+
+                <!-- SUB-ABA 6: PEDIDOS & ENTREGAS -->
+                <div id="adminSubTabOrders" class="hidden">
+                    <h4 class="admin-animated-text" style="margin-bottom: 14px;"><i class="fa-solid fa-boxes-packing"></i> Gerenciar Compras & Entregar Pedidos</h4>
+                    <div id="adminPurchasesList"><p style="color: var(--text-sub); font-size: 0.85rem;">Carregando pedidos...</p></div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- BOTÃO FLUTUANTE SUPORTE -->
+    <div class="btn-support-float" onclick="openSupportModal()">
+        <i class="fa-solid fa-headset" style="font-size: 1.2rem;"></i> Suporte
+    </div>
+
+    <!-- MODAL DE COMPRA / PIX -->
+    <div class="modal hidden" id="buyModal">
+        <div class="modal-content">
+            <h3 style="color: #fff; font-family: 'Fredoka', sans-serif;" id="modalProdTitle">Comprar Item</h3>
+            <p style="color: var(--accent-gold); font-weight: bold; margin-bottom: 4px;" id="modalProdPrice">R$ 0.00</p>
+            <p style="color: var(--text-sub); font-size: 0.85rem; margin-bottom: 12px;" id="modalProdMeta"></p>
+
+            <div class="input-row" style="margin-bottom: 12px;">
+                <input type="text" class="input-box" id="inputApplyCoupon" placeholder="Cupom de Desconto">
+                <button type="button" class="btn-submit btn-secondary" style="width: auto;" onclick="applyCouponToPurchase()">Aplicar</button>
+            </div>
+            
+            <div style="text-align: center; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
+                <p style="font-size: 0.85rem; color: var(--text-sub);">Escaneie o QR Code Pix abaixo:</p>
+                <img id="modalPixQr" class="qr-code-img" src="https://via.placeholder.com/180?text=Sem+QR+Code" alt="QR Code PIX">
+                
+                <div class="input-block" style="margin-top: 10px;">
+                    <label style="font-size: 0.8rem;">Copia e Cola:</label>
+                    <input type="text" class="input-box" id="modalPixCodeInput" readonly style="text-align: center; font-size: 0.8rem;">
+                </div>
+                <button class="btn-submit btn-pix-red" onclick="copyPixCode()"><i class="fa-solid fa-qrcode"></i> Copiar Chave / Código Pix</button>
+            </div>
+
+            <!-- MENSAGEM DE AVISO QUANDO BLOQUEADO -->
+            <div id="pendingOrderNotice" class="notice-box hidden" style="margin-top: 12px; border-color: var(--accent-gold); color: var(--accent-gold);">
+                <i class="fa-solid fa-clock"></i> Você já possui uma notificação de Pix pendente para este produto. Aguarde a entrega ou rejeição pelo Administrador.
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 16px;">
+                <button class="btn-submit btn-success" id="btnNotifyPix" onclick="submitOrderForConfirmation()"><i class="fa-solid fa-paper-plane"></i> Notificar Pix Realizado</button>
+                <button class="btn-submit btn-secondary" onclick="closeBuyModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE AVATAR CROP -->
+    <div class="modal hidden" id="avatarModal">
+        <div class="modal-content">
+            <h3 style="color: #fff; font-family: 'Fredoka', sans-serif; margin-bottom: 12px;"><i class="fa-solid fa-crop-simple"></i> Ajustar Foto de Perfil</h3>
+            <div class="notice-box"><i class="fa-solid fa-hand-pointer"></i> Ajuste sua foto usando os controles abaixo.</div>
+            <div class="input-block"><input type="file" class="input-box" id="avatarFileInputModal" accept="image/*"></div>
+            <div class="avatar-crop-container" id="cropContainer">
+                <img id="cropTargetImg" class="avatar-crop-img" src="https://via.placeholder.com/150" alt="Avatar Target">
+            </div>
+            <div class="crop-controls" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                <label style="font-size: 0.8rem; color: var(--text-sub);">Zoom Livre</label>
+                <input type="number" step="0.1" id="zoomRange" value="1" class="input-box" oninput="updateCropTransformFromInput()">
+                <div class="input-row">
+                    <div class="input-block">
+                        <label style="font-size: 0.8rem; color: var(--text-sub);">Posição X</label>
+                        <input type="number" id="posXRange" value="0" class="input-box" oninput="updateCropTransformFromInput()">
+                    </div>
+                    <div class="input-block">
+                        <label style="font-size: 0.8rem; color: var(--text-sub);">Posição Y</label>
+                        <input type="number" id="posYRange" value="0" class="input-box" oninput="updateCropTransformFromInput()">
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-submit" onclick="saveCroppedAvatar()"><i class="fa-solid fa-check"></i> Salvar Foto</button>
+                <button class="btn-submit btn-secondary" onclick="closeAvatarCropModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CHAT DE SUPORTE -->
+    <div class="modal hidden" id="supportModal">
+        <div class="modal-content">
+            <h3 style="color: #fff; font-family: 'Fredoka', sans-serif; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="fa-solid fa-comments"></i> Central de Suporte</span>
+                <span id="ticketStatusBadge" style="font-size: 0.75rem; background: var(--primary-accent); padding: 3px 8px; border-radius: 6px;">Ativo</span>
+            </h3>
+            <div class="chat-box" id="chatBox">
+                <div class="chat-msg">
+                    <div class="chat-msg-author">Atendimento StarCat</div>
+                    Olá! Suas mensagens ficam salvas no banco de dados até que o Admin responda ou encerre seu ticket.
+                </div>
+            </div>
+            <div class="input-block">
+                <input type="text" class="input-box" id="chatInputMsg" placeholder="Digite sua mensagem de suporte...">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn-submit" onclick="sendSupportTicket()"><i class="fa-solid fa-paper-plane"></i> Enviar Mensagem</button>
+                <button class="btn-submit btn-danger hidden" id="adminCloseTicketBtn" onclick="handleAdminCloseTicket()"><i class="fa-solid fa-lock"></i> Encerrar Ticket (Admin)</button>
+                <button class="btn-submit btn-secondary" onclick="closeSupportModal()">Fechar Janela</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--primary-glow); font-size: 1.2rem;"></i>
+        <span id="toastMessage">Mensagem</span>
+    </div>
+
+    <!-- FIREBASE INTEGRATION & ULTRA-FAST CACHING -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, collection, onSnapshot, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7e_jzxdwysOWzZ8RgUDYZsH2Wd6U9Tv8",
+            authDomain: "jogos-468c5.firebaseapp.com",
+            projectId: "jogos-468c5",
+            storageBucket: "jogos-468c5.firebasestorage.app",
+            messagingSenderId: "707655679439",
+            appId: "1:707655679439:web:9d731963b6c9179c9d66ba",
+            measurementId: "G-WNSP6TZY4E"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const ADMIN_UID = "nSKZ32f7EaT2awiTvG6Lgxwtesf2";
+
+        // WEBHOOK EXCLUSIVO PARA CLIENTES COM TAG DE CARGO
+        window.CLIENT_WEBHOOK_URL = "https://discord.com/api/webhooks/1543712009625804871/MjnkOvElJ4IrvN_ynuStH6-weNp0nRmCCXjcclOSC5PBoPbTtJEf5A3c0v02JD0NYRQF";
+        window.CLIENT_ROLE_TAG = "<@&1311429604606480404>";
+
+        window.fbAuth = auth;
+        window.fbDb = db;
+        window.ADMIN_UID = ADMIN_UID;
+        window.fbFuncs = { 
+            createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, 
+            doc, setDoc, getDoc, updateDoc, deleteDoc, collection, onSnapshot, addDoc, query, orderBy 
+        };
+
+        // CACHE LOCAL RÁPIDO
+        window.allCatalogs = JSON.parse(localStorage.getItem('starcat_cache_catalogs') || '[]');
+        window.allProducts = JSON.parse(localStorage.getItem('starcat_cache_products') || '[]');
+        window.allCoupons = JSON.parse(localStorage.getItem('starcat_cache_coupons') || '[]');
+        window.allPurchases = JSON.parse(localStorage.getItem('starcat_cache_purchases') || '[]');
+        window.botConfig = JSON.parse(localStorage.getItem('starcat_cache_bot_config') || JSON.stringify({
+            primaryWebhook: "https://discord.com/api/webhooks/1543614113341767822/gi9dcd4FyobAEvWORF9HXOINI2cSgrpr07ZXeZ17b9_hrqtoFVapTL9aLgdgqEZvF1on",
+            deliveryWebhook: "https://discord.com/api/webhooks/1543696208365625454/zROdOQM21VWysor7-gFJV3xcR4BV4gW1E_0tkwEA_KfXGlP7-eCLnuspU2QKcz6clvHM",
+            embedColor: "#ff0000",
+            deliveryTemplate: "<:carrinho:1543696820755238962> | Pedido Entregue ‼️\n> <:setaD:1543340062974935140> <user>!\n> <:setaD:1543340062974935140> Seu : <produto> foi entregue na sua conta **<nickMinecraft>**!"
+        }));
+
+        renderShopCatalogsAndProductsUI();
+        renderAdminCatalogsListUI();
+        renderAdminCouponsListUI();
+        updateCatalogDropdownUI();
+        loadBotConfigUI();
+
+        // LISTENERS TEMPO REAL FIRESTORE
+
+        // 1. CATÁLOGOS
+        onSnapshot(collection(db, "catalogs"), (snapshot) => {
+            const catalogs = [];
+            snapshot.forEach((docSnap) => catalogs.push({ id: docSnap.id, ...docSnap.data() }));
+            window.allCatalogs = catalogs;
+            localStorage.setItem('starcat_cache_catalogs', JSON.stringify(catalogs));
+            renderShopCatalogsAndProductsUI();
+            renderAdminCatalogsListUI();
+            updateCatalogDropdownUI();
+        });
+
+        // 2. PRODUTOS
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            const products = [];
+            snapshot.forEach((docSnap) => products.push({ id: docSnap.id, ...docSnap.data() }));
+            window.allProducts = products;
+            localStorage.setItem('starcat_cache_products', JSON.stringify(products));
+            renderShopCatalogsAndProductsUI();
+        });
+
+        // 3. CUPONS
+        onSnapshot(collection(db, "coupons"), (snapshot) => {
+            const coupons = [];
+            snapshot.forEach((docSnap) => coupons.push({ id: docSnap.id, ...docSnap.data() }));
+            window.allCoupons = coupons;
+            localStorage.setItem('starcat_cache_coupons', JSON.stringify(coupons));
+            renderAdminCouponsListUI();
+        });
+
+        // 4. BOT CONFIG
+        onSnapshot(doc(db, "settings", "botConfig"), (docSnap) => {
+            if (docSnap.exists()) {
+                window.botConfig = docSnap.data();
+                localStorage.setItem('starcat_cache_bot_config', JSON.stringify(window.botConfig));
+                loadBotConfigUI();
+            }
+        });
+
+        // 5. COMPRAS & RANKING TOP 10 EM TEMPO REAL
+        onSnapshot(collection(db, "purchases"), async (snapshot) => {
+            const purchases = [];
+            const totalsByUid = {};
+
+            snapshot.forEach((docSnap) => {
+                const p = { id: docSnap.id, ...docSnap.data() };
+                purchases.push(p);
+
+                // Apenas compras CONCLUÍDAS pelo admin entram para o Ranking TOP 10
+                if (p.status === 'completed') {
+                    const uid = p.uid || p.mcNick;
+                    if (!totalsByUid[uid]) {
+                        totalsByUid[uid] = {
+                            mcNick: p.mcNick || 'Anônimo',
+                            username: p.username || 'Anônimo',
+                            avatar: p.avatar || 'https://via.placeholder.com/150',
+                            total: 0
+                        };
+                    }
+                    totalsByUid[uid].total += parseFloat(p.amount) || 0;
+                }
+            });
+
+            window.allPurchases = purchases;
+            localStorage.setItem('starcat_cache_purchases', JSON.stringify(purchases));
+
+            const ranking = Object.values(totalsByUid).sort((a, b) => b.total - a.total).slice(0, 10);
+            renderRankingUI(ranking);
+            renderAdminPurchasesUI();
+        });
+
+        // 6. TICKETS ADMIN
+        onSnapshot(collection(db, "tickets"), (snapshot) => {
+            const tickets = [];
+            snapshot.forEach((docSnap) => tickets.push({ id: docSnap.id, ...docSnap.data() }));
+            window.allTickets = tickets;
+            renderAdminTicketsListUI();
+        });
+
+        // MONITOR DE AUTENTICAÇÃO
+        onAuthStateChanged(auth, async (user) => {
+            const tabAdminBtn = document.getElementById('tabAdminBtn');
+
+            if (user) {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    window.currentUserData = userDoc.data();
+                    window.currentUserData.uid = user.uid;
+                } else {
+                    window.currentUserData = {
+                        username: user.email.split('@')[0],
+                        mcNick: 'stc',
+                        email: user.email,
+                        avatar: 'https://via.placeholder.com/150',
+                        usernameChangeCount: 0
+                    };
+                }
+
+                if (user.uid === ADMIN_UID) {
+                    tabAdminBtn.classList.remove('hidden');
+                    document.getElementById('adminCloseTicketBtn').classList.remove('hidden');
+                } else {
+                    tabAdminBtn.classList.add('hidden');
+                    document.getElementById('adminCloseTicketBtn').classList.add('hidden');
+                    switchTab('shop');
+                }
+
+                listenToSupportTicket(user.uid);
+                updateProfileUI();
+            } else {
+                window.currentUserData = null;
+                tabAdminBtn.classList.add('hidden');
+                document.getElementById('adminCloseTicketBtn').classList.add('hidden');
+                switchTab('shop');
+                updateProfileUI();
+            }
+        });
+
+        function listenToSupportTicket(uid) {
+            const ticketRef = doc(db, "tickets", uid);
+            onSnapshot(ticketRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    renderChatMessages(data.messages || [], data.status || 'open');
+                } else {
+                    renderChatMessages([], 'closed');
+                }
+            });
+        }
+        window.listenToSupportTicket = listenToSupportTicket;
+    </script>
+
+    <script>
+        let currentProdImageData = "";
+        let activePurchaseProd = null;
+        let originalPurchasePrice = 0;
+        let currentPurchaseFinalPrice = 0;
+        let appliedCouponDoc = null;
+        let selectedTicketUidForAdmin = null;
+
+        // CROPPER STATE
+        let cropState = { scale: 1, posX: 0, posY: 0 };
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        function switchTab(tabName) {
+            const viewShop = document.getElementById('viewShop');
+            const viewAdmin = document.getElementById('viewAdmin');
+            const tabShopBtn = document.getElementById('tabShopBtn');
+            const tabAdminBtn = document.getElementById('tabAdminBtn');
+
+            if (tabName === 'admin') {
+                viewShop.classList.add('hidden');
+                viewAdmin.classList.remove('hidden');
+                tabShopBtn.classList.remove('active');
+                tabAdminBtn.classList.add('active');
+            } else {
+                viewAdmin.classList.add('hidden');
+                viewShop.classList.remove('hidden');
+                tabAdminBtn.classList.remove('active');
+                tabShopBtn.classList.add('active');
+            }
+        }
+
+        function switchAdminSubTab(subTab) {
+            const tabs = ['catalogs', 'products', 'coupons', 'bot', 'chats', 'orders'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`btnAdminTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const view = document.getElementById(`adminSubTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (t === subTab) {
+                    btn.classList.add('active');
+                    view.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active');
+                    view.classList.add('hidden');
+                }
+            });
+        }
+
+        function toggleAuthScreens(screen) {
+            document.getElementById('formLogin').classList.toggle('hidden', screen !== 'login');
+            document.getElementById('formRegister').classList.toggle('hidden', screen !== 'register');
+            document.getElementById('profileEdit').classList.toggle('hidden', screen !== 'profile');
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value;
+
+            try {
+                await window.fbFuncs.signInWithEmailAndPassword(window.fbAuth, emailInput, pass);
+                showToast("Login efetuado!");
+            } catch (error) {
+                showToast("Erro no login: " + error.message);
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUser').value.trim();
+            const mcNick = document.getElementById('regMcNick').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const pass = document.getElementById('regPass').value;
+            const passConfirm = document.getElementById('regPassConfirm').value;
+
+            if (pass !== passConfirm) {
+                showToast("As senhas não coincidem!");
+                return;
+            }
+
+            try {
+                const userCred = await window.fbFuncs.createUserWithEmailAndPassword(window.fbAuth, email, pass);
+                const uid = userCred.user.uid;
+
+                const userData = {
+                    username: username,
+                    mcNick: mcNick,
+                    email: email,
+                    avatar: "https://via.placeholder.com/150",
+                    usernameChangeCount: 0
+                };
+
+                await window.fbFuncs.setDoc(window.fbFuncs.doc(window.fbDb, "users", uid), userData);
+                window.currentUserData = userData;
+                window.currentUserData.uid = uid;
+
+                showToast("Conta criada com sucesso!");
+                updateProfileUI();
+            } catch (error) {
+                showToast("Erro no cadastro: " + error.message);
+            }
+        }
+
+        async function handleLogout() {
+            await window.fbFuncs.signOut(window.fbAuth);
+            window.currentUserData = null;
+            document.getElementById('tabAdminBtn').classList.add('hidden');
+            switchTab('shop');
+            updateProfileUI();
+            showToast("Sessão encerrada.");
+        }
+
+        function updateProfileUI() {
+            const user = window.currentUserData;
+            const userBadge = document.getElementById('userBadge');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (user) {
+                toggleAuthScreens('profile');
+                userBadge.style.display = 'flex';
+                logoutBtn.style.display = 'flex';
+
+                document.getElementById('navUsername').innerText = user.username;
+                document.getElementById('navAvatarImg').src = user.avatar || 'https://via.placeholder.com/150';
+                document.getElementById('profileAvatarPreview').src = user.avatar || 'https://via.placeholder.com/150';
+
+                document.getElementById('profUser').value = user.username;
+                document.getElementById('profMcNick').value = user.mcNick;
+                document.getElementById('profEmail').value = user.email;
+
+                const profUserField = document.getElementById('profUser');
+                if (user.usernameChangeCount >= 1) {
+                    profUserField.disabled = true;
+                    document.getElementById('userChangeNote').innerText = "(Nome alterado - Limite Atingido)";
+                } else {
+                    profUserField.disabled = false;
+                    document.getElementById('userChangeNote').innerText = "(1 alteração permitida)";
+                }
+            } else {
+                toggleAuthScreens('login');
+                userBadge.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        async function handleProfileUpdate(e) {
+            e.preventDefault();
+            if (!window.currentUserData) return;
+
+            const newUsername = document.getElementById('profUser').value.trim();
+            const newMcNick = document.getElementById('profMcNick').value.trim();
+
+            let changes = { mcNick: newMcNick };
+
+            if (newUsername !== window.currentUserData.username && window.currentUserData.usernameChangeCount < 1) {
+                changes.username = newUsername;
+                changes.usernameChangeCount = (window.currentUserData.usernameChangeCount || 0) + 1;
+            }
+
+            try {
+                const userRef = window.fbFuncs.doc(window.fbDb, "users", window.currentUserData.uid);
+                await window.fbFuncs.updateDoc(userRef, changes);
+                
+                Object.assign(window.currentUserData, changes);
+                updateProfileUI();
+                showToast("Perfil atualizado!");
+            } catch (err) {
+                showToast("Erro ao salvar: " + err.message);
+            }
+        }
+
+        // ENVIAR WEBHOOK
+        function sendDiscordWebhook(url, payload) {
+            if (!url) return;
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(e => console.error("Erro Discord Webhook:", e));
+        }
+
+        function loadBotConfigUI() {
+            const cfg = window.botConfig;
+            if (!cfg) return;
+            if (document.getElementById('botPrimaryWebhook')) document.getElementById('botPrimaryWebhook').value = cfg.primaryWebhook || '';
+            if (document.getElementById('botDeliveryWebhook')) document.getElementById('botDeliveryWebhook').value = cfg.deliveryWebhook || '';
+            if (document.getElementById('botEmbedColor')) document.getElementById('botEmbedColor').value = cfg.embedColor || '#ff0000';
+            if (document.getElementById('botDeliveryTemplate')) document.getElementById('botDeliveryTemplate').value = cfg.deliveryTemplate || '';
+        }
+
+        async function handleSaveBotSettings(e) {
+            e.preventDefault();
+            if (!window.currentUserData || window.currentUserData.uid !== window.ADMIN_UID) return;
+
+            const primaryWebhook = document.getElementById('botPrimaryWebhook').value.trim();
+            const deliveryWebhook = document.getElementById('botDeliveryWebhook').value.trim();
+            const embedColor = document.getElementById('botEmbedColor').value;
+            const deliveryTemplate = document.getElementById('botDeliveryTemplate').value;
+
+            const cfg = { primaryWebhook, deliveryWebhook, embedColor, deliveryTemplate, updatedAt: Date.now() };
+
+            try {
+                await window.fbFuncs.setDoc(window.fbFuncs.doc(window.fbDb, "settings", "botConfig"), cfg);
+                window.botConfig = cfg;
+                localStorage.setItem('starcat_cache_bot_config', JSON.stringify(cfg));
+                showToast("Configurações do Bot salvas!");
+            } catch (err) {
+                showToast("Erro ao salvar bot: " + err.message);
+            }
+        }
+
+        // COMPRESSÃO DE IMAGEM
+        document.getElementById('prodImgFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const MAX_SIZE = 400;
+
+                        if (width > height) {
+                            if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; }
+                        } else {
+                            if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; }
+                        }
+
+                        canvas.width = width; canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        currentProdImageData = canvas.toDataURL('image/jpeg', 0.75);
+                        document.getElementById('imagePreview').innerHTML = `<img src="${currentProdImageData}">`;
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 1. CATÁLOGOS
+        async function handleCreateCatalog(e) {
+            e.preventDefault();
+            if (!window.currentUserData || window.currentUserData.uid !== window.ADMIN_UID) return;
+
+            const name = document.getElementById('catName').value.trim();
+            const color = document.getElementById('catColor').value;
+
+            try {
+                await window.fbFuncs.addDoc(window.fbFuncs.collection(window.fbDb, "catalogs"), { name, color, createdAt: Date.now() });
+                showToast(`Catálogo "${name}" criado!`);
+                e.target.reset();
+            } catch (err) {
+                showToast("Erro ao criar catálogo: " + err.message);
+            }
+        }
+
+        async function deleteCatalog(catId) {
+            if (!confirm("Excluir este catálogo?")) return;
+            try {
+                await window.fbFuncs.deleteDoc(window.fbFuncs.doc(window.fbDb, "catalogs", catId));
+                showToast("Catálogo excluído!");
+            } catch (err) {
+                showToast("Erro ao excluir: " + err.message);
+            }
+        }
+
+        function updateCatalogDropdownUI() {
+            const select = document.getElementById('prodCatalogSelect');
+            if (!select) return;
+            select.innerHTML = '';
+
+            const catalogs = window.allCatalogs || [];
+            if (catalogs.length === 0) {
+                select.innerHTML = `<option value="Geral">Geral (Padrão)</option>`;
+                return;
+            }
+
+            catalogs.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.name;
+                opt.textContent = c.name;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderAdminCatalogsListUI() {
+            const list = document.getElementById('adminCatalogsList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            const catalogs = window.allCatalogs || [];
+            if (catalogs.length === 0) {
+                list.innerHTML = `<p style="color: var(--text-sub); font-size: 0.85rem;">Nenhum catálogo cadastrado.</p>`;
+                return;
+            }
+
+            catalogs.forEach(c => {
+                const row = document.createElement('div');
+                row.className = 'item-list-row';
+                row.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 16px; height: 16px; border-radius: 4px; background: ${c.color}; display: inline-block;"></span>
+                        <strong style="color: #fff;">${c.name}</strong>
+                    </div>
+                    <button class="btn-submit btn-danger" style="width: auto; padding: 4px 10px; font-size: 0.8rem;" onclick="deleteCatalog('${c.id}')">
+                        <i class="fa-solid fa-trash"></i> Excluir
+                    </button>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        // 2. PRODUTOS
+        async function handleSaveProduct(e) {
+            e.preventDefault();
+            if (!window.currentUserData || window.currentUserData.uid !== window.ADMIN_UID) return;
+
+            const title = document.getElementById('prodTitle').value.trim();
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const duration = document.getElementById('prodDuration').value.trim() || 'Permanente';
+            const quantity = parseInt(document.getElementById('prodQuantity').value) || 0;
+            const color = document.getElementById('prodColor').value;
+            const category = document.getElementById('prodCatalogSelect').value || 'Geral';
+            const discount = parseInt(document.getElementById('prodDiscount').value) || 0;
+            const pixQr = document.getElementById('prodPixQr').value.trim();
+            const pixCode = document.getElementById('prodPixCode').value.trim();
+
+            try {
+                await window.fbFuncs.addDoc(window.fbFuncs.collection(window.fbDb, "products"), {
+                    title, price, duration, quantity, color, category, discount,
+                    img: currentProdImageData,
+                    pixQr, pixCode,
+                    createdAt: Date.now()
+                });
+
+                showToast("Produto cadastrado!");
+                currentProdImageData = "";
+                document.getElementById('imagePreview').innerHTML = `<span style="color: var(--text-sub); font-size: 0.85rem;">Nenhuma imagem</span>`;
+                e.target.reset();
+            } catch (err) {
+                showToast("Erro ao publicar: " + err.message);
+            }
+        }
+
+        async function deleteProduct(prodId) {
+            if (!confirm("Apagar produto?")) return;
+            try {
+                await window.fbFuncs.deleteDoc(window.fbFuncs.doc(window.fbDb, "products", prodId));
+                showToast("Produto removido!");
+            } catch (err) {
+                showToast("Erro ao apagar: " + err.message);
+            }
+        }
+
+        // 3. CUPONS
+        async function handleCreateCoupon(e) {
+            e.preventDefault();
+            if (!window.currentUserData || window.currentUserData.uid !== window.ADMIN_UID) return;
+
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
+            const discount = parseInt(document.getElementById('couponPercent').value);
+            const usesRemaining = parseInt(document.getElementById('couponUses').value);
+
+            try {
+                await window.fbFuncs.addDoc(window.fbFuncs.collection(window.fbDb, "coupons"), {
+                    code, discount, usesRemaining, createdAt: Date.now()
+                });
+
+                showToast(`Cupom ${code} criado!`);
+                e.target.reset();
+            } catch (err) {
+                showToast("Erro ao criar cupom: " + err.message);
+            }
+        }
+
+        async function deleteCoupon(couponId) {
+            try {
+                await window.fbFuncs.deleteDoc(window.fbFuncs.doc(window.fbDb, "coupons", couponId));
+                showToast("Cupom removido!");
+            } catch (err) {
+                showToast("Erro ao apagar: " + err.message);
+            }
+        }
+
+        function renderAdminCouponsListUI() {
+            const list = document.getElementById('adminCouponsList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            const coupons = window.allCoupons || [];
+            if (coupons.length === 0) {
+                list.innerHTML = `<p style="color: var(--text-sub); font-size: 0.85rem;">Nenhum cupom ativo.</p>`;
+                return;
+            }
+
+            coupons.forEach(cp => {
+                const row = document.createElement('div');
+                row.className = 'item-list-row';
+                row.innerHTML = `
+                    <div>
+                        <strong style="color: var(--accent-gold); font-size: 1rem;">${cp.code}</strong> 
+                        <span style="color: var(--text-sub); font-size: 0.85rem;">(${cp.discount}% OFF) — Usos: <b>${cp.usesRemaining}</b></span>
+                    </div>
+                    <button class="btn-submit btn-danger" style="width: auto; padding: 4px 10px; font-size: 0.8rem;" onclick="deleteCoupon('${cp.id}')">
+                        <i class="fa-solid fa-trash"></i> Excluir
+                    </button>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        // 4. LOJA
+        function renderShopCatalogsAndProductsUI() {
+            const containerArea = document.getElementById('shopCatalogsArea');
+            if (!containerArea) return;
+            containerArea.innerHTML = '';
+
+            const catalogs = window.allCatalogs || [];
+            const products = window.allProducts || [];
+
+            if (products.length === 0 && catalogs.length === 0) {
+                containerArea.innerHTML = `<div class="card"><p style="color: var(--text-sub); text-align: center;">Nenhum produto cadastrado na loja no momento.</p></div>`;
+                return;
+            }
+
+            const productsByCategory = {};
+            products.forEach(p => {
+                const cat = p.category || 'Geral';
+                if (!productsByCategory[cat]) productsByCategory[cat] = [];
+                productsByCategory[cat].push(p);
+            });
+
+            let catalogList = [...catalogs];
+            if (productsByCategory['Geral'] && !catalogList.some(c => c.name === 'Geral')) {
+                catalogList.push({ name: 'Geral', color: '#ff0000' });
+            }
+
+            catalogList.forEach(cat => {
+                const catProducts = productsByCategory[cat.name] || [];
+                if (catProducts.length === 0 && (!window.currentUserData || window.currentUserData.uid !== window.ADMIN_UID)) return;
+
+                const catColor = cat.color || '#ff0000';
+                
+                const catBox = document.createElement('div');
+                catBox.className = 'catalog-container';
+                catBox.style.setProperty('--cat-color', catColor);
+                catBox.style.setProperty('--cat-glow', catColor + '55');
+
+                let productsGridHTML = '';
+                if (catProducts.length === 0) {
+                    productsGridHTML = `<p style="color: var(--text-sub); font-size: 0.9rem; grid-column: 1 / -1; text-align: center;">Nenhum produto neste catálogo.</p>`;
+                } else {
+                    catProducts.forEach(p => {
+                        const priceNum = parseFloat(p.price) || 0;
+                        const discNum = parseInt(p.discount) || 0;
+                        const finalPrice = discNum > 0 ? (priceNum * (1 - discNum / 100)).toFixed(2) : priceNum.toFixed(2);
+                        const customColor = p.color || catColor;
+                        const isAdmin = window.currentUserData && window.currentUserData.uid === window.ADMIN_UID;
+
+                        productsGridHTML += `
+                            <div class="produto-card" style="--custom-color: ${customColor}; --custom-glow: ${customColor}66;">
+                                <div class="produto-img-container">
+                                    ${discNum > 0 ? `<span class="badge-desconto">-${discNum}%</span>` : ''}
+                                    ${p.img ? `<img src="${p.img}" loading="lazy">` : `<i class="fa-solid fa-cat placeholder-icon"></i>`}
+                                </div>
+                                <div class="produto-info">
+                                    <div>
+                                        <div class="produto-title">${p.title}</div>
+                                        <div class="produto-meta">
+                                            <span class="badge-meta"><i class="fa-solid fa-clock"></i> ${p.duration || 'Permanente'}</span>
+                                            <span class="badge-meta"><i class="fa-solid fa-boxes-stacked"></i> Qtd: ${p.quantity ?? '∞'}</span>
+                                        </div>
+                                    </div>
+                                    <div class="produto-preco-box">
+                                        <span class="preco-atual">R$ ${finalPrice}</span>
+                                        ${discNum > 0 ? `<span class="preco-antigo">R$ ${priceNum.toFixed(2)}</span>` : ''}
+                                    </div>
+                                    <div style="display: flex; gap: 6px;">
+                                        <button class="btn-submit btn-pix-red" style="flex: 1;" onclick="openBuyModal('${p.id}')"><i class="fa-solid fa-qrcode"></i> Pagar via Pix</button>
+                                        ${isAdmin ? `<button class="btn-submit btn-danger" style="width: auto; padding: 0 12px;" onclick="deleteProduct('${p.id}')"><i class="fa-solid fa-trash"></i></button>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                catBox.innerHTML = `
+                    <div class="catalog-header">
+                        <span><i class="fa-solid fa-layer-group"></i> ${cat.name}</span>
+                        <span style="font-size: 0.85rem; opacity: 0.9; font-weight: normal;">${catProducts.length} produto(s)</span>
+                    </div>
+                    <div class="catalog-products-grid">
+                        ${productsGridHTML}
+                    </div>
+                `;
+
+                containerArea.appendChild(catBox);
+            });
+        }
+
+        // 5. RANKING TOP 10
+        function renderRankingUI(ranking) {
+            const list = document.getElementById('rankingList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            if (ranking.length === 0) {
+                list.innerHTML = `<p style="color: var(--text-sub); text-align: center; font-size: 0.85rem;">Nenhuma compra confirmada ainda.</p>`;
+                return;
+            }
+
+            ranking.forEach((item, index) => {
+                const rankClass = index === 0 ? 'rank-top-1' : (index === 1 ? 'rank-top-2' : (index === 2 ? 'rank-top-3' : ''));
+                const div = document.createElement('div');
+                div.className = `ranking-item ${rankClass}`;
+                div.innerHTML = `
+                    <div class="ranking-pos">${index + 1}º</div>
+                    <div class="ranking-user">
+                        <img class="ranking-avatar" src="${item.avatar || 'https://via.placeholder.com/150'}" onerror="this.src='https://via.placeholder.com/150'" alt="Avatar">
+                        <div>
+                            <div class="ranking-nick">${item.mcNick}</div>
+                            <small style="font-size: 0.75rem; color: var(--text-sub);">${item.username}</small>
+                        </div>
+                    </div>
+                    <div class="ranking-val">R$ ${item.total.toFixed(2)}</div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // 6. VERIFICAÇÃO SE O PRODUTO ESTÁ BLOQUEADO PARA NOTIFICAR PIX
+        function checkIsProductBlockedForUser(productId) {
+            if (!window.currentUserData) return false;
+            const purchases = window.allPurchases || [];
+            return purchases.some(p => 
+                p.productId === productId && 
+                p.uid === window.currentUserData.uid && 
+                p.status === 'pending'
+            );
+        }
+
+        // MODAL DE COMPRA & CUPOM
+        function openBuyModal(prodId) {
+            activePurchaseProd = (window.allProducts || []).find(p => p.id === prodId);
+            if (!activePurchaseProd) return showToast("Produto não encontrado!");
+
+            appliedCouponDoc = null;
+            const priceNum = parseFloat(activePurchaseProd.price) || 0;
+            const discNum = parseInt(activePurchaseProd.discount) || 0;
+            originalPurchasePrice = discNum > 0 ? (priceNum * (1 - discNum / 100)) : priceNum;
+            currentPurchaseFinalPrice = originalPurchasePrice;
+
+            const couponInput = document.getElementById('inputApplyCoupon');
+            couponInput.value = '';
+            couponInput.disabled = false;
+
+            document.getElementById('modalProdTitle').innerText = activePurchaseProd.title;
+            document.getElementById('modalProdPrice').innerText = `R$ ${currentPurchaseFinalPrice.toFixed(2)}`;
+            document.getElementById('modalProdMeta').innerText = `Duração: ${activePurchaseProd.duration || 'Permanente'}`;
+            document.getElementById('modalPixQr').src = activePurchaseProd.pixQr || 'https://via.placeholder.com/180?text=Sem+QR+Code';
+            document.getElementById('modalPixCodeInput').value = activePurchaseProd.pixCode || '';
+
+            // LÓGICA DE BLOQUEIO DO BOTÃO DE NOTIFICAR PIX
+            const btnNotify = document.getElementById('btnNotifyPix');
+            const noticeBox = document.getElementById('pendingOrderNotice');
+            const isBlocked = checkIsProductBlockedForUser(prodId);
+
+            if (isBlocked) {
+                btnNotify.disabled = true;
+                btnNotify.innerHTML = `<i class="fa-solid fa-clock"></i> Pagamento Pendente de Análise`;
+                noticeBox.classList.remove('hidden');
+            } else {
+                btnNotify.disabled = false;
+                btnNotify.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Notificar Pix Realizado`;
+                noticeBox.classList.add('hidden');
+            }
+
+            document.getElementById('buyModal').classList.remove('hidden');
+        }
+
+        function closeBuyModal() {
+            document.getElementById('buyModal').classList.add('hidden');
+            activePurchaseProd = null;
+            appliedCouponDoc = null;
+        }
+
+        async function applyCouponToPurchase() {
+            if (appliedCouponDoc) {
+                showToast("O cupom já foi aplicado nesta compra!");
+                return;
+            }
+
+            const codeInput = document.getElementById('inputApplyCoupon').value.trim().toUpperCase();
+            if (!codeInput) return showToast("Digite um cupom!");
+
+            const coupon = (window.allCoupons || []).find(c => c.code === codeInput);
+            if (!coupon) return showToast("Cupom inválido ou expirado!");
+            if (coupon.usesRemaining <= 0) return showToast("Este cupom já esgotou!");
+
+            appliedCouponDoc = coupon;
+            const discountAmount = originalPurchasePrice * (coupon.discount / 100);
+            currentPurchaseFinalPrice = Math.max(0, originalPurchasePrice - discountAmount);
+
+            document.getElementById('modalProdPrice').innerText = `R$ ${currentPurchaseFinalPrice.toFixed(2)} (${coupon.discount}% OFF)`;
+            document.getElementById('inputApplyCoupon').disabled = true;
+            showToast(`Cupom ${coupon.code} aplicado com sucesso!`);
+        }
+
+        function copyPixCode() {
+            const codeInput = document.getElementById('modalPixCodeInput');
+            if (!codeInput.value) return showToast("Nenhum código Pix cadastrado.");
+            
+            navigator.clipboard.writeText(codeInput.value);
+            showToast("Código Pix Copia e Cola copiado!");
+        }
+
+        // NOTIFICAR PIX REALIZADO -> ENVIA WEBHOOK DO CLIENTE COM MARCAÇÃO DO CARGO
+        async function submitOrderForConfirmation() {
+            if (!window.currentUserData) return showToast("Faça login para realizar compras!");
+            if (!activePurchaseProd) return;
+
+            // TRAVA DE SEGURANÇA SE JÁ HOUVER PENDENTE
+            if (checkIsProductBlockedForUser(activePurchaseProd.id)) {
+                showToast("Você já possui uma notificação pendente para este produto!");
+                return;
+            }
+
+            try {
+                const purchaseData = {
+                    productId: activePurchaseProd.id,
+                    productTitle: activePurchaseProd.title,
+                    amount: currentPurchaseFinalPrice,
+                    status: 'pending',
+                    uid: window.currentUserData.uid,
+                    username: window.currentUserData.username,
+                    mcNick: window.currentUserData.mcNick,
+                    avatar: window.currentUserData.avatar || 'https://via.placeholder.com/150',
+                    createdAt: Date.now()
+                };
+
+                await window.fbFuncs.addDoc(window.fbFuncs.collection(window.fbDb, "purchases"), purchaseData);
+
+                if (appliedCouponDoc && appliedCouponDoc.id) {
+                    const cRef = window.fbFuncs.doc(window.fbDb, "coupons", appliedCouponDoc.id);
+                    await window.fbFuncs.updateDoc(cRef, { usesRemaining: Math.max(0, appliedCouponDoc.usesRemaining - 1) });
+                }
+
+                // WEBHOOK DO CLIENTE (COM MARCAÇÃO DE CARGO)
+                const clientPayload = {
+                    content: `${window.CLIENT_ROLE_TAG} 🛒 **Novo Pix Notificado!**`,
+                    embeds: [{
+                        title: "Aviso de Pagamento Pix",
+                        color: 16711680,
+                        fields: [
+                            { name: "Cliente", value: window.currentUserData.username, inline: true },
+                            { name: "Nick Minecraft", value: window.currentUserData.mcNick, inline: true },
+                            { name: "Produto", value: activePurchaseProd.title, inline: true },
+                            { name: "Valor", value: `R$ ${currentPurchaseFinalPrice.toFixed(2)}`, inline: true }
+                        ],
+                        timestamp: new Date().toISOString()
+                    }]
+                };
+
+                sendDiscordWebhook(window.CLIENT_WEBHOOK_URL, clientPayload);
+
+                showToast("Notificação de Pix enviada! Aguarde a aprovação do Admin.");
+                closeBuyModal();
+            } catch (err) {
+                showToast("Erro ao notificar Pix: " + err.message);
+            }
+        }
+
+        // GERENCIAR PEDIDOS ADMIN
+        function renderAdminPurchasesUI() {
+            const container = document.getElementById('adminPurchasesList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const purchases = window.allPurchases || [];
+            if (purchases.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-sub); font-size: 0.85rem;">Nenhum pedido registrado.</p>`;
+                return;
+            }
+
+            // Exibir pedidos pendentes primeiro
+            const sorted = [...purchases].sort((a, b) => (a.status === 'pending' ? -1 : 1));
+
+            sorted.forEach(p => {
+                const isPending = p.status === 'pending';
+                const row = document.createElement('div');
+                row.className = `item-list-row ${isPending ? 'pending' : ''}`;
+
+                let statusBadge = `<span style="color: var(--accent-gold); font-weight: bold;">[Pendente]</span>`;
+                if (p.status === 'completed') statusBadge = `<span style="color: var(--success); font-weight: bold;">[Entregue]</span>`;
+                if (p.status === 'rejected') statusBadge = `<span style="color: var(--primary-accent); font-weight: bold;">[Rejeitado]</span>`;
+
+                row.innerHTML = `
+                    <div>
+                        <div><strong>${p.productTitle}</strong> — R$ ${parseFloat(p.amount).toFixed(2)} ${statusBadge}</div>
+                        <small style="color: var(--text-sub);">Cliente: <b>${p.username}</b> (Nick: <b>${p.mcNick}</b>)</small>
+                    </div>
+                    ${isPending ? `
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn-submit btn-success" style="width: auto; padding: 6px 12px; font-size: 0.8rem;" onclick="deliverPurchase('${p.id}')">
+                                <i class="fa-solid fa-check"></i> Entregar
+                            </button>
+                            <button class="btn-submit btn-danger" style="width: auto; padding: 6px 12px; font-size: 0.8rem;" onclick="rejectPurchase('${p.id}')">
+                                <i class="fa-solid fa-xmark"></i> Rejeitar
+                            </button>
+                        </div>
+                    ` : ''}
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        async function deliverPurchase(purchaseId) {
+            try {
+                const pRef = window.fbFuncs.doc(window.fbDb, "purchases", purchaseId);
+                const pSnap = await window.fbFuncs.getDoc(pRef);
+                
+                if (pSnap.exists()) {
+                    const pData = pSnap.data();
+                    await window.fbFuncs.updateDoc(pRef, { status: 'completed' });
+
+                    // ENVIA MENSAGEM PELO WEBHOOK DE ENTREGA DO ADMIN
+                    const cfg = window.botConfig || {};
+                    if (cfg.deliveryWebhook) {
+                        let msg = cfg.deliveryTemplate || "<user> seu produto <produto> foi entregue para <nickMinecraft>!";
+                        msg = msg.replace(/<user>/g, `@${pData.username}`)
+                                 .replace(/<produto>/g, pData.productTitle)
+                                 .replace(/<nickMinecraft>/g, pData.mcNick);
+
+                        sendDiscordWebhook(cfg.deliveryWebhook, { content: msg });
+                    }
+                }
+
+                showToast("Pedido entregue com sucesso!");
+            } catch (err) {
+                showToast("Erro ao entregar pedido: " + err.message);
+            }
+        }
+
+        async function rejectPurchase(purchaseId) {
+            if (!confirm("Tem certeza que deseja rejeitar este pedido? O bloqueio do produto para o cliente será liberado.")) return;
+            try {
+                const pRef = window.fbFuncs.doc(window.fbDb, "purchases", purchaseId);
+                await window.fbFuncs.updateDoc(pRef, { status: 'rejected' });
+                showToast("Pedido rejeitado. O produto foi liberado novamente para o cliente.");
+            } catch (err) {
+                showToast("Erro ao rejeitar pedido: " + err.message);
+            }
+        }
+
+        // AJUSTE DE AVATAR (CROP)
+        function openAvatarCropModal() {
+            document.getElementById('avatarModal').classList.remove('hidden');
+        }
+
+        function closeAvatarCropModal() {
+            document.getElementById('avatarModal').classList.add('hidden');
+        }
+
+        document.getElementById('avatarFileInputModal').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    document.getElementById('cropTargetImg').src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function updateCropTransformFromInput() {
+            const zoom = parseFloat(document.getElementById('zoomRange').value) || 1;
+            const posX = parseFloat(document.getElementById('posXRange').value) || 0;
+            const posY = parseFloat(document.getElementById('posYRange').value) || 0;
+
+            cropState.scale = zoom;
+            cropState.posX = posX;
+            cropState.posY = posY;
+
+            const img = document.getElementById('cropTargetImg');
+            img.style.transform = `translate(-50%, -50%) translate(${posX}px, ${posY}px) scale(${zoom})`;
+        }
+
+        async function saveCroppedAvatar() {
+            if (!window.currentUserData) return;
+
+            const img = document.getElementById('cropTargetImg');
+            const canvas = document.createElement('canvas');
+            canvas.width = 150; canvas.height = 150;
+            const ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.arc(75, 75, 75, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.clip();
+
+            ctx.drawImage(img, 0, 0, 150, 150);
+            const avatarBase64 = canvas.toDataURL('image/jpeg', 0.85);
+
+            try {
+                const userRef = window.fbFuncs.doc(window.fbDb, "users", window.currentUserData.uid);
+                await window.fbFuncs.updateDoc(userRef, { avatar: avatarBase64 });
+
+                window.currentUserData.avatar = avatarBase64;
+                updateProfileUI();
+                closeAvatarCropModal();
+                showToast("Foto de perfil atualizada!");
+            } catch (err) {
+                showToast("Erro ao salvar avatar: " + err.message);
+            }
+        }
+
+        // CHAT DE SUPORTE
+        function openSupportModal() {
+            if (!window.currentUserData) return showToast("Faça login para utilizar o suporte!");
+            document.getElementById('supportModal').classList.remove('hidden');
+        }
+
+        function closeSupportModal() {
+            document.getElementById('supportModal').classList.add('hidden');
+            selectedTicketUidForAdmin = null;
+        }
+
+        function renderChatMessages(messages, status) {
+            const chatBox = document.getElementById('chatBox');
+            if (!chatBox) return;
+            chatBox.innerHTML = '';
+
+            const badge = document.getElementById('ticketStatusBadge');
+            if (badge) {
+                badge.innerText = status === 'closed' ? 'Encerrado' : 'Ativo';
+                badge.style.background = status === 'closed' ? 'var(--secondary-accent)' : 'var(--primary-accent)';
+            }
+
+            if (messages.length === 0) {
+                chatBox.innerHTML = `
+                    <div class="chat-msg">
+                        <div class="chat-msg-author">Atendimento StarCat</div>
+                        Olá! Envie uma mensagem para iniciar o suporte.
+                    </div>
+                `;
+                return;
+            }
+
+            messages.forEach(m => {
+                const isMe = window.currentUserData && m.author === window.currentUserData.username;
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-msg ${isMe ? 'me' : ''}`;
+                msgDiv.innerHTML = `
+                    <div class="chat-msg-author">${m.author}</div>
+                    <div>${m.text}</div>
+                `;
+                chatBox.appendChild(msgDiv);
+            });
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function sendSupportTicket() {
+            if (!window.currentUserData) return showToast("Faça login!");
+
+            const input = document.getElementById('chatInputMsg');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const targetUid = (window.currentUserData.uid === window.ADMIN_UID && selectedTicketUidForAdmin) 
+                ? selectedTicketUidForAdmin 
+                : window.currentUserData.uid;
+
+            try {
+                const ticketRef = window.fbFuncs.doc(window.fbDb, "tickets", targetUid);
+                const ticketSnap = await window.fbFuncs.getDoc(ticketRef);
+
+                const newMsg = {
+                    author: window.currentUserData.username,
+                    text: text,
+                    timestamp: Date.now()
+                };
+
+                if (ticketSnap.exists()) {
+                    const existingData = ticketSnap.data();
+                    const updatedMsgs = [...(existingData.messages || []), newMsg];
+                    await window.fbFuncs.updateDoc(ticketRef, {
+                        messages: updatedMsgs,
+                        status: 'open',
+                        updatedAt: Date.now()
+                    });
+                } else {
+                    await window.fbFuncs.setDoc(ticketRef, {
+                        uid: targetUid,
+                        username: window.currentUserData.username,
+                        messages: [newMsg],
+                        status: 'open',
+                        createdAt: Date.now(),
+                        updatedAt: Date.now()
+                    });
+                }
+
+                input.value = '';
+
+                // SE FOR CLIENTE ABRINDO SUPORTE, DISPARA NO WEBHOOK DO CLIENTE
+                if (window.currentUserData.uid !== window.ADMIN_UID) {
+                    sendDiscordWebhook(window.CLIENT_WEBHOOK_URL, {
+                        content: `${window.CLIENT_ROLE_TAG} 💬 **Nova Mensagem de Suporte!**\n> **Cliente:** ${window.currentUserData.username}\n> **Mensagem:** ${text}`
+                    });
+                }
+
+            } catch (err) {
+                showToast("Erro ao enviar mensagem: " + err.message);
+            }
+        }
+
+        function renderAdminTicketsListUI() {
+            const list = document.getElementById('adminTicketsList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            const tickets = window.allTickets || [];
+            if (tickets.length === 0) {
+                list.innerHTML = `<p style="color: var(--text-sub); font-size: 0.85rem;">Nenhum ticket pendente.</p>`;
+                return;
+            }
+
+            tickets.forEach(t => {
+                const row = document.createElement('div');
+                row.className = 'item-list-row';
+                row.innerHTML = `
+                    <div>
+                        <strong style="color: #fff;">${t.username || 'Usuário'}</strong>
+                        <small style="color: var(--text-sub); display: block;">Status: ${t.status || 'open'}</small>
+                    </div>
+                    <button class="btn-submit" style="width: auto; padding: 6px 12px; font-size: 0.8rem;" onclick="openAdminTicketModal('${t.uid}')">
+                        <i class="fa-solid fa-comments"></i> Abrir Chat
+                    </button>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function openAdminTicketModal(ticketUid) {
+            selectedTicketUidForAdmin = ticketUid;
+            window.listenToSupportTicket(ticketUid);
+            document.getElementById('supportModal').classList.remove('hidden');
+        }
+
+        async function handleAdminCloseTicket() {
+            if (!selectedTicketUidForAdmin) return;
+            try {
+                await window.fbFuncs.deleteDoc(window.fbFuncs.doc(window.fbDb, "tickets", selectedTicketUidForAdmin));
+                showToast("Ticket encerrado e excluído com sucesso!");
+                closeSupportModal();
+            } catch (err) {
+                showToast("Erro ao encerrar ticket: " + err.message);
+            }
+        }
+    </script>
+</body>
+</html>
